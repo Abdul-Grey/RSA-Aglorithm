@@ -1,0 +1,27 @@
+from rsaprogram import *
+
+#Function to encrypt the text
+def encrypt_text(text_msg_in_ascii):
+    text_encrypt=[]
+    print("Encrypted text: ",end="")
+    for i in range(text_msg_in_ascii.__len__()):
+        tmp = text_msg_in_ascii[i]**e %n
+        text_encrypt.insert(i,tmp)
+        print(tmp,end="")
+    print("\n")
+    return text_encrypt;
+
+#Function to decrypt the text
+def decrypt_text(text_encrypt):
+    text_decrypt = ""
+    for i in range(text_encrypt.__len__()):
+        tmp = text_encrypt[i]**d %n
+        text_decrypt = text_decrypt + chr(tmp)
+    print("Decrypted text : ",text_decrypt)
+
+
+#Execution of the program
+text_msg = input("Enter you text message: ").strip()
+text_msg_in_ascii = [ord(i) for i in text_msg]
+e,d,n=start()
+decrypt_text(encrypt_text(text_msg_in_ascii))

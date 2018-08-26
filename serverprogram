@@ -1,0 +1,25 @@
+import socket
+from rsaprogram import *
+
+server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+host='localhost'
+port=5291
+server_socket.bind((host,port))
+
+# socket is created and binded to a port & host
+
+#listening for connections
+server_socket.listen(5)
+
+input_number = int(input("Enter a number: "))
+e,d,n=start()
+encrypted = input_number**e % n
+
+while True:
+    (conn_received,addr) = server_socket.accept()
+    msg = conn_received.recv(30)
+    print("Message from client ",msg.decode('utf-8'))
+    conn_received.send(str(encrypted).encode('utf-8'))
+    decrypted = int(msg)**d % n
+    print("Decrypted message from client: ",decrypted)
+    conn_received.close()
